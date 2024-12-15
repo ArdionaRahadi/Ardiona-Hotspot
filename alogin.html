@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="2; url=$(link-redirect)">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Internet hotspot - Redirect</title>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .loader {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 10px solid #3498db;
+            border-top: 10px solid #e74c3c;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .loader::before {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border: 8px solid transparent;
+            border-top: 8px solid #2ecc71;
+            animation: spin 2s linear infinite reverse;
+        }
+
+        .loader::after {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border: 6px solid transparent;
+            border-top: 6px solid #f39c12;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            position: absolute;
+            top: calc(50% + 80px);
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+    <script>
+        function startClock() {
+            $(if popup == 'true')
+            open('$(link-status)', 'hotspot_status', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=290,height=200');
+        $(endif)
+        location.href = unescape('$(link-redirect-esc)');
+        }
+
+    </script> 
+</head>
+
+<body onLoad="startClock()">
+    <!-- <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap">
+                <h1>You are logged in</h1>
+                <p class="info">If nothing happens, click <a href="$(link-redirect)">here</a></p>
+            </div>
+        </div>
+    </div> -->
+    
+    <div class="container">
+        <div class="loader"></div>
+        <div class="loading-text" id="loadingText">Loading...</div>
+    </div>
+    
+    <script>
+        const loadingText = document.getElementById('loadingText');
+        const texts = [
+            'Loading...',
+            'Memuat data...',
+            'Tunggu sebentar...',
+            'Sedang proses...'
+        ];
+        let currentIndex = 0;
+
+        function changeLoadingText() {
+            loadingText.textContent = texts[currentIndex];
+            currentIndex = (currentIndex + 1) % texts.length;
+        }
+
+        // Ubah teks loading setiap 2 detik
+        setInterval(changeLoadingText, 2000);
+    </script>
+</body>
+
+</html>
